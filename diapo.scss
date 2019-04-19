@@ -1,0 +1,271 @@
+// --------------------------------------------------
+// Flexbox SASS mixins
+// The spec: http://www.w3.org/TR/css3-flexbox
+// --------------------------------------------------
+
+// Flexbox display
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+// The 'flex' shorthand
+// - applies to: flex items
+// <positive-number>, initial, auto, or none
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex: $values;
+  -webkit-flex: $values;
+  -ms-flex: $values;
+  flex: $values;
+}
+
+// Flex Flow Direction
+// - applies to: flex containers
+// row | row-reverse | column | column-reverse
+@mixin flex-direction($direction) {
+  -webkit-flex-direction: $direction;
+  -moz-flex-direction: $direction;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+// Flex Line Wrapping
+// - applies to: flex containers
+// nowrap | wrap | wrap-reverse
+@mixin flex-wrap($wrap) {
+  -webkit-flex-wrap: $wrap;
+  -moz-flex-wrap: $wrap;
+  -ms-flex-wrap: $wrap;
+  flex-wrap: $wrap;
+}
+
+// Flex Direction and Wrap
+// - applies to: flex containers
+// <flex-direction> || <flex-wrap>
+@mixin flex-flow($flow) {
+  -webkit-flex-flow: $flow;
+  -moz-flex-flow: $flow;
+  -ms-flex-flow: $flow;
+  flex-flow: $flow;
+}
+
+// Display Order
+// - applies to: flex items
+// <integer>
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}
+
+// Flex grow factor
+// - applies to: flex items
+// <number>
+@mixin flex-grow($grow) {
+  -webkit-flex-grow: $grow;
+  -moz-flex-grow: $grow;
+  -ms-flex-grow: $grow;
+  flex-grow: $grow;
+}
+
+// Flex shrink
+// - applies to: flex item shrink factor
+// <number> 
+@mixin flex-shrink($shrink) {
+  -webkit-flex-shrink: $shrink;
+  -moz-flex-shrink: $shrink;
+  -ms-flex-shrink: $shrink;
+  flex-shrink: $shrink;
+}
+
+// Flex basis
+// - the initial main size of the flex item
+// - applies to: flex itemsnitial main size of the flex item
+// <width> 
+@mixin flex-basis($width) {
+  -webkit-flex-basis: $width;
+  -moz-flex-basis: $width;
+  -ms-flex-basis: $width;
+  flex-basis: $width;
+}
+
+// Axis Alignment
+// - applies to: flex containers
+// flex-start | flex-end | center | space-between | space-around 
+@mixin justify-content($justify) {
+  -webkit-justify-content: $justify;
+  -moz-justify-content: $justify;
+  -ms-justify-content: $justify;
+  justify-content: $justify;
+  -ms-flex-pack: $justify;
+}
+
+// Packing Flex Lines
+// - applies to: multi-line flex containers
+// flex-start | flex-end | center | space-between | space-around | stretch 
+@mixin align-content($align) {
+  -webkit-align-content: $align;
+  -moz-align-content: $align;
+  -ms-align-content: $align;
+  align-content: $align;
+}
+
+// Cross-axis Alignment
+// - applies to: flex containers
+// flex-start | flex-end | center | baseline | stretch 
+@mixin align-items($align) {
+  -webkit-align-items: $align;
+  -moz-align-items: $align;
+  -ms-align-items: $align;
+  align-items: $align;
+}
+
+// Cross-axis Alignment
+// - applies to: flex items
+// auto | flex-start | flex-end | center | baseline | stretch 
+@mixin align-self($align) {
+  -webkit-align-self: $align;
+  -moz-align-self: $align;
+  -ms-align-self: $align;
+  align-self: $align;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.img-container {
+  @include flexbox();
+  @include justify-content(space-around);
+}
+
+
+.img {
+  height: 40vh;
+  margin: 20px 2vw;
+  cursor: pointer;
+}
+
+#modal-fond {
+  @include flexbox();
+  @include justify-content(center);
+  @include align-items(center);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  z-index: 900;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+#close-btn::after {
+  content: '\2715';
+}
+
+#close-btn {
+  position: absolute;
+  top: 20px;
+  left: 95vw;
+  color: white;
+  background-color: transparent;
+  font-size: 40px;
+  height: 40px;
+  width: 40px;
+  border-style: none;
+  cursor: pointer;
+  z-index: 9999;
+  transform: scale(1, 1);
+  transition: 0.2s transform cubic-bezier(0.6, -2, 0.735, 2);
+}
+
+.main {
+  @include flexbox();
+  @include justify-content(start);
+  @include align-items(center);
+  overflow: hidden;
+  width: 80vw;
+}
+
+.modal-img {
+  height: calc(100vh / 1.77);
+  z-index: 950;
+  transition: transform .3s;
+}
+
+[displaying=true] {
+  transform: translateX(0);
+}
+
+.caretL,
+.caretR {
+  cursor: pointer;
+  color: white;
+  transform: scale(1, 1);
+  transition: 0.2s transform cubic-bezier(0.6, -2, 0.735, 2);
+}
+
+.caretL:hover,
+.caretR:hover,
+#close-btn:hover {
+  transform: scale(1.2, 1.2);
+}
+
+#modal-img p {
+  @include align-self(center);
+  position: relative;
+  top: 45%;
+  color: white;
+  font-size: 2em;
+}
+
+.caretL {
+  position: absolute;
+  top: 50vh;
+  left: 5vw;
+  z-index: 1500;
+}
+
+.caretR {
+  position: absolute;
+  top: 50vh;
+  left: 95vw;
+  z-index: 1500;
+}
+
+.diapoList {
+  position: absolute;
+  top: 90vh;
+  width: 100%;
+  list-style: none;
+  text-align: center;
+  z-index: 960;
+}
+
+.diapoPuceListe {
+  display: inline;
+  color: white;
+  line-height: 20px;
+  font-size: 20px;
+  margin-right: 1em;
+  cursor: pointer;
+}
+
+.diapoPuce::after {
+  content: '\25CB';
+}
+
+.diapoPuceSelect::after {
+  content: '\25C9';
+}
